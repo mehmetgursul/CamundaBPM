@@ -35,10 +35,26 @@ public class CamundaUserRestServiceTest extends ConfigureTest {
 	public void getUserByFirstName() {
 		given().when().get("/engine-rest/user?firstName=CamundaTestUserFirstName").then().statusCode(200);
 	}
+	
+	@Test
+	public void getUserByLastName() {
+		given().when().get("/engine-rest/user?lastName=CamundaTestUserLastName").then().statusCode(200);
+	}
+	
+	@Test
+	public void getUserByEmail() {
+		given().when().get("/engine-rest/user?email=no-reply@test.CamundaTestUser").then().statusCode(200);
+	}
 
 	@Test
 	public void shouldResponseZeroNumberOfMatchingUserForInvalidUserFirstName() {
 		given().when().get("/engine-rest/user/count?firstName=" + RandomStringUtils.random(32)).then().body("count",
+				equalTo(0));
+	}
+	
+	@Test
+	public void shouldResponseZeroNumberOfMatchingUserForInvalidUserLastName() {
+		given().when().get("/engine-rest/user/count?lastName=" + RandomStringUtils.random(32)).then().body("count",
 				equalTo(0));
 	}
 
