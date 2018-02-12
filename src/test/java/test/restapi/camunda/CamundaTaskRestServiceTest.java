@@ -37,6 +37,12 @@ public class CamundaTaskRestServiceTest extends ConfigureTest {
 	public void getTaskByID() {
 		given().when().get("/engine-rest/task/" + taskID).then().body("name", equalTo("Camunda Test Task"));
 	}
+	
+	@Test
+	public void runCompleteTask() {
+		given().contentType("application/json").body("").when().post("/engine-rest/task/" + taskID + "/complete").then()
+				.statusCode(204);
+	}
 
 	@Test
 	public void shouldResponseNotFoundForRequestingInvalidTaskId() {
